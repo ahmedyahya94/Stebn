@@ -13,9 +13,20 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('welcome', 'WelcomeController@index');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('authentication/register', 'AuthenticationController@register');
+
+Route::post('register', 'AuthenticationController@store');
+
+Route::get('authentication/login', 'AuthenticationController@login');
+
+Route::post('login', 'AuthenticationController@authenticate');
+
+Route::get('logout', 'AuthenticationController@Deauthenticate');
+
+Route::get('admin/welcome', 'AdminController@index');
+
+Route::get('admin/cards', 'AdminController@cards');
+
+Route::post('CreateCards', 'AdminController@CreateCards');
