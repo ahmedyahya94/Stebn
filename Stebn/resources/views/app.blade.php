@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>Stebn</title>
 
 	<link href="/css/app.css" rel="stylesheet">
 
@@ -28,7 +28,10 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Master Solutions</a>
+				<a class="navbar-brand" href="#">
+                    <span style = "color: dodgerblue"> Master Solutions
+                    </span>
+                </a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -38,23 +41,32 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="/auth/login">Login</a></li>
-						<li><a href="/auth/register">Register</a></li>
-                        <li><a href="http://facebook.com"> Visit our Facebook page!</a></li>
+						<li><a href="/authentication/login">Login</a></li>
+						<li><a href="/authentication/register">Register</a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/auth/logout">Logout</a></li>
+								<li><a href="/authentication/logout">Logout</a></li>
 							</ul>
 						</li>
 					@endif
+                    <li><a href="https://www.facebook.com/pages/MasterSolutions/847808498623501?fref=ts"> Visit our Facebook page!</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+    @if (Session::has('flash_message'))
+
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{Session::get('flash_message')}}
+    </div>
+
+    @endif
 
 	@yield('content')
+
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
