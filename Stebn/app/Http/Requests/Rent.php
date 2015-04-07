@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class CreateBikeStation extends Request {
+class Rent extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,10 +22,7 @@ class CreateBikeStation extends Request {
 	public function rules()
 	{
 		return [
-        'BatchSize'     => 'required|Integer',
-        'location'      => 'required',
-        'maxCapacity'   => 'required|Integer',
-        'functional'    => 'required'
+
 		];
 	}
 

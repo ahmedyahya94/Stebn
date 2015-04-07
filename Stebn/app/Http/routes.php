@@ -30,3 +30,29 @@ Route::get('admin/welcome', 'AdminController@index');
 Route::get('admin/cards', 'AdminController@cards');
 
 Route::post('CreateCards', 'AdminController@CreateCards');
+
+Route::get('hotelreceptionist/welcome', 'HotelReceptionistController@index');
+
+Route::get('hotelreceptionist/viewCards', 'HotelReceptionistController@viewCards');
+
+Route::get('admin/bikes', 'AdminController@bikes');
+
+Route::post('CreateBikes', 'AdminController@CreateBikes');
+
+Route::get('admin/bikestations', 'AdminController@bikeStations');
+
+Route::post('CreateBikeStations', 'AdminController@CreateBikeStations');
+
+Route::get('admin/viewBikeStations', 'AdminController@viewBikeStations');
+
+Route::get('/admin/BikesInABikeStation', 'AdminController@viewBikesInABikeStation');
+
+Route::post('ViewBikesInACertainStation', 'AdminController@showBikesInStation');
+
+Route::get('Customer/welcome' ,'CustomerController@index');
+
+Route::get('Customer/RentABike','CustomerController@RentABike');
+
+Route::get('Customer/ViewRentedBikes','CustomerController@ViewRentedBikes');
+
+Route::post('RentABike', 'CustomerController@RentTheBike');

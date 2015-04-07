@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\BikeStation;
 use App\Card;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Bike;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -16,12 +19,45 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.welcome');
+        $user = Auth::User();
+		return view('admin.welcome', compact('user'));
 	}
 
     public function cards()
     {
-        return view('admin.create.cards');
+        $user = Auth::User();
+        return view('admin.create.cards', compact('user'));
+    }
+
+    public function bikes()
+    {
+        $user = Auth::User();
+        return view('admin.create.bikes', compact('user'));
+    }
+
+    public function bikeStations()
+    {
+        $user = Auth::User();
+        return view('admin.create.bikestations', compact('user'));
+    }
+
+    public function CreateBikeStations(Requests\CreateBikeStation $request)
+    {
+        BikeStation::create($request->all());
+        return redirect('admin/welcome')->with([
+            'flash_message' => 'Bike Station
+            created successfully!',
+            'flash_message_important' => true,
+        ]);
+    }
+
+    public function CreateBikes(Requests\CreateBike $request)
+    {
+        Bike::create($request->all());
+        return redirect('admin/welcome')->with([
+             'flash_message' => 'Bike created successfully!',
+             'flash_message_important' => true,
+         ]);
     }
 
     public function CreateCards(Requests\CreateCards $request)
@@ -37,10 +73,33 @@ class AdminController extends Controller {
             $n = $n - 1;
         }
 
-        return redirect('admin/cards')->with([
+        return redirect('admin/welcome')->with([
         'flash_message' => 'Card(s) created successfully!',
         'flash_message_important' => true,
     ]);
+    }
+
+    public function viewBikeStations()
+    {
+        $user = Auth::User();
+        $bikeStations = BikeStation::all();
+        return view('admin.view.bikeStations', compact('user'), compact('bikeStations'));
+    }
+
+    public function viewBikesInABikeStation()
+    {
+        $user = Auth::User();
+        $bikestations = BikeStation::all();
+        return view('admin.view.BikesInABikestation', compact('user'), compact('bikestations'));
+    }
+
+    public function showBikesInStation(Requests\viewBikes $request)
+    {
+        //dd($request->station);
+
+        $bikeStation = BikeStation::find($request->station +1);
+        $bikes = $bikeStation->bikes;
+        dd($bikes);
     }
 
 	/**
