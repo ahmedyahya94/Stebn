@@ -22,11 +22,10 @@ class CreateBikeStation extends Request {
 	public function rules()
 	{
 		return [
-			'functional' => 'required',
-            'location'=> 'required',
-            'max_capacity'=> 'required',
-            'name'=> 'required',
-            'batch_size'=> 'required',
+        'BatchSize'     => 'required|Integer',
+        'location'      => 'required',
+        'maxCapacity'   => 'required|Integer',
+        'functional'    => 'required'
 		];
 	}
 
