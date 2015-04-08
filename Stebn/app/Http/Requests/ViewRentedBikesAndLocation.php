@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class viewBikes extends Request {
+class ViewRentedBikesAndLocation extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.

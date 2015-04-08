@@ -53,6 +53,6 @@ Route::get('Customer/welcome' ,'CustomerController@index');
 
 Route::get('Customer/RentABike','CustomerController@RentABike');
 
-Route::get('Customer/ViewRentedBikes','CustomerController@ViewRentedBikes');
+Route::get('Customer/ViewRentedBikesAndLocation','CustomerController@ViewRentedBikesAndLocation');
 
 Route::post('RentABike', 'CustomerController@RentTheBike');
