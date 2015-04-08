@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
 Route::get('welcome', 'WelcomeController@index');
 
 Route::get('authentication/register', 'AuthenticationController@register');
@@ -30,3 +28,29 @@ Route::get('admin/welcome', 'AdminController@index');
 Route::get('admin/cards', 'AdminController@cards');
 
 Route::post('CreateCards', 'AdminController@CreateCards');
+
+Route::get('hotelreceptionist/welcome', 'HotelReceptionistController@index');
+
+Route::get('hotelreceptionist/viewCards', 'HotelReceptionistController@viewCards');
+
+Route::get('admin/bikes', 'AdminController@bikes');
+
+Route::post('CreateBikes', 'AdminController@CreateBikes');
+
+Route::get('admin/bikestations', 'AdminController@bikeStations');
+
+Route::post('CreateBikeStations', 'AdminController@CreateBikeStations');
+
+Route::get('admin/viewBikeStations', 'AdminController@viewBikeStations');
+
+Route::get('bikestations', 'UserController@bikeStations');
+
+Route::post('viewBikeStations', 'AdminController@viewBikes');
+
+Route::get('/admin/updateMinTime', 'AdminController@UpdateMinTime');
+
+Route::post('UpdateBikeTime', 'AdminController@UpdateBikeTime');
+
+Route::get('/admin/updatePrice', 'AdminController@updatePrice');
+
+Route::post('updatePrice', 'AdminController@updateBikePrice');

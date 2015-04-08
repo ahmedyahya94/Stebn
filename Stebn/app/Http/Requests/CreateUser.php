@@ -24,7 +24,6 @@ class CreateUser extends Request {
         return [
             'name' => 'required|min:2',
             'email' => 'required|email|unique:users',
-            'card_id' => 'required|unique:users',
             'password' => 'required|min:6|confirmed',
         ];
     }

@@ -32,4 +32,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * This method returns all the bikes associated with a certain user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function bikes()
+    {
+        return $this->belongsToMany('App\Bike')->withTimestamps();
+    }
+
 }
