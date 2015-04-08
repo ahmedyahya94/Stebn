@@ -1,6 +1,6 @@
-@extends('app')
+@extends('hotelreceptionist.welcome')
 
-@section('content')
+@section('register')
 
 {!! Form::open(['url' => 'register']) !!}
 
@@ -17,13 +17,6 @@
 
         {!! Form::label('email', 'E-mail Address:') !!}
         {!! Form::text('email', null, ['class' => 'form-control']) !!}
-
-    </div>
-
-    <div class = "form-group"">
-    {!! Form::label('card_id', 'Card ID:') !!}
-    {!! Form::text('card_id', null, ['class' => 'form-control']) !!}
-
     </div>
 
     <div class = "form-group">
@@ -34,10 +27,13 @@
     </div>
 
     <div class = "form-group">
-
         {!! Form::label('password_confirmation', 'Confirm Password:') !!}
         {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+    </div>
 
+    <div class = "form-group">
+        {!! Form::label('location', 'Location:') !!}
+        {!! Form::text('location', null, ['class' => 'form-control']) !!}
     </div>
 
     <div>

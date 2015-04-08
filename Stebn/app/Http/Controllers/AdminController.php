@@ -1,9 +1,16 @@
 <?php namespace App\Http\Controllers;
 
+use App\BikeStation;
 use App\Card;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\OutstandingPayment;
+use App\OutstandingTime;
 use App\User;
+use App\Bike;
+use Auth;
+use App\Time;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -16,13 +23,78 @@ class AdminController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.welcome');
+        $user = Auth::User();
+		return view('admin.welcome', compact('user'));
 	}
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the view for creating cards.
+     */
 
     public function cards()
     {
-        return view('admin.create.cards');
+        $user = Auth::User();
+        return view('admin.create.cards', compact('user'));
     }
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the view for creating a new bike.
+     */
+
+    public function bikes()
+    {
+        $user = Auth::User();
+        return view('admin.create.bikes', compact('user'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the view for creating a new bike station.
+     */
+    public function bikeStations()
+    {
+        $user = Auth::User();
+        return view('admin.create.bikestations', compact('user'));
+    }
+
+    /**
+     * @param Requests\CreateBikeStation $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Creates a new bike station.
+     */
+
+    public function CreateBikeStations(Requests\CreateBikeStation $request)
+    {
+        BikeStation::create($request->all());
+        return redirect('admin/welcome')->with([
+            'flash_message' => 'Bike Station
+            created successfully!',
+            'flash_message_important' => true,
+        ]);
+    }
+
+    /**
+     * @param Requests\CreateBike $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Creates a new bike.
+     */
+
+    public function CreateBikes(Requests\CreateBike $request)
+    {
+        Bike::create($request->all());
+        return redirect('admin/welcome')->with([
+             'flash_message' => 'Bike created successfully!',
+             'flash_message_important' => true,
+         ]);
+    }
+
+    /**
+     * @param Requests\CreateCards $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Creates cards based on the admin's request.
+     */
 
     public function CreateCards(Requests\CreateCards $request)
     {
@@ -37,12 +109,139 @@ class AdminController extends Controller {
             $n = $n - 1;
         }
 
-        return redirect('admin/cards')->with([
+        return redirect('admin/welcome')->with([
         'flash_message' => 'Card(s) created successfully!',
         'flash_message_important' => true,
     ]);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     * Returns all bikestations in a drop down list.
+     */
+
+    public function viewBikeStations()
+    {
+        $user = Auth::User();
+        $bikeStations = BikeStation::all();
+        return view('admin.view.bikeStations', compact('user'), compact('bikeStations'));
+    }
+
+    /**
+     * This method returns the bikes in a certain given station.
+     */
+    public function viewBikes(Requests\viewBikes $request)
+    {
+        $bikestation = BikeStation::find($request->bikeStations +1);
+        $bikes = $bikestation->bikes->toArray();
+        $user = Auth::User();
+
+        return view('admin.view.BikesInStation', compact('bikes'), compact('user'));
+    }
+
+
+    /**
+     * Views the update minimum time page.
+     * @return mixed
+     */
+    public function UpdateMinTime()
+    {
+        $user = Auth::User();
+        return view('admin.update.minimumTime', compact('user'));
+    }
+
+    /**
+     * Updates the minimum time attribute in table time.
+     *
+     */
+
+    public function UpdateBikeTime(Requests\UpdateMinTime $request)
+    {
+        $x = $request->minimum_time;
+        DB::table('times')
+            ->where('id', 1)
+            ->update(['minimum_time' => $x]);
+
+        return redirect('admin/welcome')->with([
+            'flash_message' => 'Minimum time updated successfully!',
+            'flash_message_important' => true,
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the view responsible for updating table price.
+     */
+
+    public function updatePrice()
+    {
+        $user = Auth::User();
+        return view('admin.update.price', compact('user'));
+    }
+
+    /**
+     * @param Requests\updatePrice $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Updates table price with the requested new price.
+     */
+
+
+    public function updateBikePrice(Requests\updatePrice $request)
+    {
+        $x = $request->price;
+        DB::table('prices')
+            ->where('id', 1)
+            ->update(['price' => $x]);
+
+        return redirect('admin/welcome')->with([
+            'flash_message' => 'Price updated successfully!',
+            'flash_message_important' => true,
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the total outstanding payments by all users.
+     */
+
+    public function totalOutstandingPayments()
+    {
+        $user = Auth::User();
+        $totalPayments = OutstandingPayment::all();
+        $sum = 0;
+        foreach($totalPayments as $totalPayment)
+        {
+            $sum = $totalPayment->outstanding_price + $sum;
+        }
+
+        $formattedNum = number_format($sum, 2);
+        //dd($sum);
+        return view('admin.view.totalOutstandingPayments', compact('user'), compact('formattedNum'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * returns the total outstanding time consumed by all customers.
+     */
+
+    public function totalOutstandingTimes()
+    {
+        $user = Auth::User();
+        $totalTimes = OutstandingTime::all();
+        $sum = 0;
+        foreach($totalTimes as $totalTime)
+        {
+            $sum = $totalTime->outstanding_time + $sum;
+        }
+
+        $formattedNum = number_format($sum, 2);
+        //dd($formattedNum);
+
+
+        //dd(round($sum,2));
+        //dd($sum);
+        return view('admin.view.totalOutstandingTimes', compact('user'), compact('formattedNum'));
+    }
 	/**
 	 * Show the form for creating a new resource.
 	 *

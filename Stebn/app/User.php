@@ -23,7 +23,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'card_id', 'password', 'type'];
+	protected $fillable = ['name', 'email', 'card_id', 'password', 'type', 'location'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -31,5 +31,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * This method returns all the bikes associated with a certain user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function bikes()
+    {
+        return $this->belongsToMany('App\Bike')->withTimestamps();
+    }
 
 }

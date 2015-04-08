@@ -4,10 +4,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUser;
 use App\User;
+use App\Card;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
 
 class AuthenticationController extends Controller {
 
@@ -38,7 +41,10 @@ class AuthenticationController extends Controller {
      */
     public function register()
     {
-        return view('authentication.register');
+        $card = Card::first();
+        $card_id = $card->id;
+        $user = Auth::User();
+        return view('authentication.register', compact('user'), compact('card_id'));
     }
 
     public function login()
@@ -46,11 +52,52 @@ class AuthenticationController extends Controller {
         return view('authentication.login');
     }
 
+    /**
+     * @param CreateUser $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Creates all different types of users.
+     */
+
     public function store(CreateUser $request)
     {
-        User::create($request->all());
+        $type = $request->type;
+        $card = Card::first();
+        $card_id = $card->id;
+        $user = Auth::user();
 
-        return view('welcome');
+        switch($type)
+        {
+            case '1':   User::create($request->all());
+
+                return redirect('admin/welcome')->with([
+                'flash_message' => 'Administrator created successfully',
+                'flash_message_important' => true,
+            ], compact($user));
+            break;
+
+            case '2':   User::create($request->all());
+
+                return redirect('hotelreceptionist/welcome')->with([
+                    'flash_message' => 'Hotel Receptionist created successfully',
+                    'flash_message_important' => true,
+                ], compact($user));
+                break;
+
+            case '0':  User::create($request->all());
+                       DB::table('users')
+                            ->where('email', $request->email)
+                            ->update(['card_id' => $card_id]);
+                        //dd($request->card_id);
+                        $card->delete();
+
+
+                return redirect('Customer/welcome')->with([
+                    'flash_message' => 'User created with Card ID:' .$card->id,
+                    'flash_message_important' => true,
+                ], compact($user));
+                break;
+        }
+
     }
 
     public function authenticate(Requests\LoginUser $request)
@@ -72,9 +119,9 @@ class AuthenticationController extends Controller {
 
         switch($user->type)
         {
-            case '1': return view('admin.welcome'); break;
-            case '2': return view('hotelreceptionist.welcome'); break;
-            default : return view('welcome'); break;
+            case '1': return view('admin.welcome', compact('user')); break;
+            case '2': return view('hotelreceptionist.welcome', compact('user')); break;
+            default : return view('Customer.welcome'); break;
         }
 
 

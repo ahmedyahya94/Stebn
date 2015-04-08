@@ -22,12 +22,10 @@ class CreateBike extends Request {
 	public function rules()
 	{
 		return [
-             'type' =>'required',
-             'rfid'	=>'required',
-             'features'=> 'required',
-            'model'=>'required',
-            'date_of_purchase'=>'required'
-
+            'type'      => 'required',
+            'vendor'    => 'required',
+            'features'  => 'required',
+            'model'     => 'required|integer'
 		];
 	}
 
