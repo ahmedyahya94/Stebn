@@ -10,10 +10,12 @@
             <a href="/Customer/RentABike">Rent A Bike </a></button>
         <h1></h1>
         @yield('RentABike')
+        
         <button class="btn btn-default">
-            <a href="/Customer/ViewRentedBikes">View Rented Bikes </a></button>
+            <a href="/Customer/ViewRentedBikesAndLocation">View Rented Bikes and Location </a></button>
         <h1></h1>
-        @yield('ViewRentedBikes')
+        @yield('ViewRentedBikesAndLocation')
+        
     </div>
 
 

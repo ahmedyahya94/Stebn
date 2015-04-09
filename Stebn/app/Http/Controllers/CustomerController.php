@@ -39,19 +39,18 @@ class CustomerController extends Controller {
 	 * @return Response
 	 */
 
-    public function ViewRentedBikes(){
+    public function ViewRentedBikesAndLocation(){
         $user = Auth::User();
-        //$bikeStations = BikeStation::all();
-        //$bikes= Bike::all();
+        $renting = renting::all();
 
-        return view('Customer.View.ViewRentedBikes', compact('user'));
+        return view('Customer.View.ViewRentedBikesAndLocation', compact('user'), compact('renting'));
 
     }
 
     public function RentABike()
     {
         $user = Auth::User();
-       $bikestations = BikeStation::all();
+        $bikestations = BikeStation::all();
         $bikes = Bike::all(); //Must be handles only to view the bikes in the current station not all stations.
 
         return view('Customer/Create/RentABike', compact('user'));
