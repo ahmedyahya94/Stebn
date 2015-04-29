@@ -1,11 +1,13 @@
-@extends('admin.welcome')
-@section('viewBikeStations')
+<h1></h1>
+<h1></h1>
+@extends('welcome')
+@section('bikeStations')
 
-{!! Form::open(['url' => 'viewBikeStations']) !!}
+{!! Form::open(['url' => 'bikestations']) !!}
 
 <div class ="container">
 
-<div class = "form-group"">
+    <div class = "form-group"">
     {!! Form::label('bikeStations', ' ') !!}
     {!! Form::select('bikeStations', $bikeStations->lists('location'), null, ['class' => 'form-control']) !!}
 </div>

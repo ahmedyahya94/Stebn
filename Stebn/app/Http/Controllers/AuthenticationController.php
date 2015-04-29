@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
 
 class AuthenticationController extends Controller {
 
@@ -41,8 +42,9 @@ class AuthenticationController extends Controller {
     public function register()
     {
         $card = Card::first();
+        $card_id = $card->id;
         $user = Auth::User();
-        return view('authentication.register', compact('user'), compact('card'));
+        return view('authentication.register', compact('user'), compact('card_id'));
     }
 
     public function login()
@@ -54,6 +56,7 @@ class AuthenticationController extends Controller {
     {
         $type = $request->type;
         $card = Card::first();
+        $card_id = $card->id;
         $user = Auth::user();
 
         switch($type)
@@ -76,9 +79,9 @@ class AuthenticationController extends Controller {
                 ], compact($user));
                 break;
 
-            default:    $request->card_id = $card;
-                        $card->delete();
+            case '0':   $request->card_id = $card_id;
                         //dd($request->card_id);
+                        $card->delete();
                         User::create($request->all());
 
                 return redirect('hotelreceptionist/welcome')->with([
@@ -111,7 +114,7 @@ class AuthenticationController extends Controller {
         {
             case '1': return view('admin.welcome', compact('user')); break;
             case '2': return view('hotelreceptionist.welcome', compact('user')); break;
-            default : return view('Customer.welcome',compact('user')); break;
+            default : return view('welcome'); break;
         }
 
 

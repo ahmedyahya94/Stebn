@@ -28,6 +28,17 @@ class CreateBikesTable extends Migration {
 
             $table->foreign('bike_station_id')->references('id')->on('bike_stations');
         });
+
+        Schema::create('bike_user', function(Blueprint $table)
+        {
+           $table->integer('bike_id')->unsigned()->index();
+           $table->foreign('bike_id')->references('id')->on('bikes')->onDelete('cascade');
+
+           $table->integer('user_id')->unsigned()->index();
+           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+           $table->timestamps();
+        });
     }
 
 	/**
@@ -38,6 +49,7 @@ class CreateBikesTable extends Migration {
 	public function down()
 	{
 		Schema::drop('bikes');
+        Schema::drop('bike_user');
 	}
 
 }

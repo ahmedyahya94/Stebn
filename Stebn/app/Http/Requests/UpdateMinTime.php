@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class Rent extends Request {
+class UpdateMinTime extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class Rent extends Request {
 	public function rules()
 	{
 		return [
-
+			'minimum_time'      =>  'required|integer'
 		];
 	}
 

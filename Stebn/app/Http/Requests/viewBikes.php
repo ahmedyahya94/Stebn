@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class ViewRentedBikesAndLocation extends Request {
+class viewBikes extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class ViewRentedBikesAndLocation extends Request {
 	public function rules()
 	{
 		return [
-			'station' => 'required'
+			//
 		];
 	}
 

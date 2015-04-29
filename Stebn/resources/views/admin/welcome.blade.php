@@ -22,16 +22,20 @@
     <button class="btn btn-default">
         <a href="/admin/viewBikeStations"> View Bike Stations</a>
     </button>
-<h1></h1>
+
 @yield('viewBikeStations')
-
-    <button class="btn btn-default">
-        <a href="/admin/BikesInABikeStation"> View Bikes In A Certain Station</a>
-    </button>
+@yield('viewBikes')
 <h1></h1>
-@yield('ViewBikesInACertainStation')
+    <button class="btn btn-default">
+        <a href="/admin/updateMinTime">Update Minimum Time</a></button>
+
+@yield('updateMinTime')
+
+<h1></h1>
+    <button class="btn btn-default">
+        <a href="/admin/updatePrice">Update Price</a></button>
+
+@yield('updatePrice')
 </div>
-
-
 
 @endsection

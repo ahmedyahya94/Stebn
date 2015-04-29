@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBikeStationTable extends Migration {
+class CreatePricesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,10 @@ class CreateBikeStationTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bikeStation', function(Blueprint $table)
+		Schema::create('prices', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->integer('BatchSize');
-            $table->string('location');
-            $table->integer('maxCapacity');
-            $table->boolean('functional');
+            $table->integer('price');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +27,7 @@ class CreateBikeStationTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('bikeStation');
+		Schema::drop('prices');
 	}
 
 }
