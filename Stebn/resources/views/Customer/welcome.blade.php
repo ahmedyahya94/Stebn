@@ -79,42 +79,65 @@
 @section('content')
 
 <div class="container">
-
-    <h1 id="username"> Hello {{$user->name}}</h1>
-
+        <h1 id="username"> Hello {{$user->name}}</h1>
     <div id="buttons">
-        <a href="/authentication/register"><h6> Create a new user! </h6>
-
+        <a href="/Customer/RentABike"> <h6> Ride a bike! </h6>
             <div>
-                $$$$$$$
+                Are you ready for one hell of a ride?
             </div>
         </a>
     </div>
-    @yield('register')
-
+    @yield('RentABike')
     <div id="buttons">
-        <a href="/hotelreceptionist/viewCards"><h6> View cards! </h6>
-
+        <a href="/Customer/ViewRentedBikes"> <h6> View rented bikes! </h6>
             <div>
-                All the current cards by IDs.
+                Can't remember what bikes you rented? We do!
             </div>
         </a>
     </div>
-    @yield('viewCards')
+    @yield('ViewRentedBikes')
     <div id="buttons">
-        <a href="/hotelreceptionist/viewCustomersData"><h6> View customer data! </h6>
+        <a href="/Customer/ParkABike"> <h6> Park a bike! </h6>
+            <div>
+                So soon?
+            </div>
+        </a>
+        </div>
+        @yield('ParkABike')
+
+
+    <div id="buttons">
+        <a href="/Customer/ViewBikesInStation"><h6> View Bike Stations! </h6>
 
             <div>
-                View each customer's financial data.
+                Gotta view'em all!
             </div>
         </a>
     </div>
 
-    @yield('viewCustomersData')
-
+@yield('viewBikeStations')
+<div id="buttons">
+    <a href="/Customer/OutstandingPrice"> <h6> View outstanding price! </h6>
+        <div>
+            No, please no, not this button!
+        </div>
+    </a>
     <h1></h1>
-
-    @yield('viewEachCustomerData')
+</div>
+    @yield('OutstandingPrice')
+<div id="buttons">
+    <a href="/Customer/OutstandingTime"> <h6> View outstanding time! </h6>
+        <div>
+            Accuracy at its finest.
+        </div>
+    </a>
+    <h1></h1>
+</div>
+    @yield('OutstandingTime')
 
 </div>
+</div>
+
+
+
 @endsection

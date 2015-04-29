@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->integer('card_id')->nullable();
 			$table->string('password', 60);
             $table->string('type');
+            $table->string('location')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});

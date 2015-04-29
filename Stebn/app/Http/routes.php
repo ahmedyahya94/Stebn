@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('welcome', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index');
 
 Route::get('authentication/register', 'AuthenticationController@register');
 
@@ -21,7 +21,7 @@ Route::get('authentication/login', 'AuthenticationController@login');
 
 Route::post('login', 'AuthenticationController@authenticate');
 
-Route::get('logout', 'AuthenticationController@Deauthenticate');
+Route::get('authentication/logout', 'AuthenticationController@Deauthenticate');
 
 Route::get('admin/welcome', 'AdminController@index');
 
@@ -54,3 +54,31 @@ Route::post('UpdateBikeTime', 'AdminController@UpdateBikeTime');
 Route::get('/admin/updatePrice', 'AdminController@updatePrice');
 
 Route::post('updatePrice', 'AdminController@updateBikePrice');
+
+Route::get('Customer/welcome' ,'CustomerController@index');
+
+Route::get('Customer/RentABike','CustomerController@RentABike');
+
+Route::get('Customer/ViewRentedBikes','CustomerController@ViewRentedBikes');
+
+Route::post('RentABike', 'CustomerController@RentTheBike');
+
+Route::get('Customer/ParkABike','CustomerController@ParkABike');
+
+Route::post('ParkABike', 'CustomerController@ParkTheBike');
+
+Route::get('Customer/OutstandingPrice', 'CustomerController@viewOutstandingPrice');
+
+Route::get('Customer/OutstandingTime', 'CustomerController@viewOutstandingTime');
+
+Route::get('hotelreceptionist/viewCustomersData', 'HotelReceptionistController@viewCustomersData');
+
+Route::get('customers/{id}', 'HotelReceptionistController@viewEachCustomerData');
+
+Route::get('admin/totalOutstandingPayments', 'AdminController@totalOutstandingPayments');
+
+Route::get('admin/totalOutstandingTimes', 'AdminController@totalOutstandingTimes');
+
+Route::get('Customer/ViewBikesInStation', 'CustomerController@ViewBikesInStation');
+
+Route::post('viewBikesInTheStation', 'CustomerController@viewBikes');

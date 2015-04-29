@@ -8,7 +8,7 @@
 
     <div class = "form-group">
         {!! Form::label('minimum_time', 'Minimum Time:') !!}
-        {!! Form::text('minimum_time', null, ['class' => 'form-control']) !!}
+        {!! Form::text('minimum_time', $minimum_time, $attributes = ['class' => 'form-control']) !!}
     </div>
 
     <h1></h1>

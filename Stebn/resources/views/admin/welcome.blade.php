@@ -1,10 +1,16 @@
 @extends('app')
 
+<style>
+    #username{
+        text-transform: capitalize;
+    }
+</style>
+
 @section('content')
 
 <div class="container">
 
-<h1> Hello {{$user->name}}</h1>
+<h1 id="username"> Hello {{$user->name}}</h1>
 
 <button class="btn btn-default">
     <a href="/admin/cards">Create Cards </a></button>
@@ -36,6 +42,20 @@
         <a href="/admin/updatePrice">Update Price</a></button>
 
 @yield('updatePrice')
+
+
+<h1></h1>
+    <button class="btn btn-default">
+        <a href="/admin/totalOutstandingPayments">Total Outstanding Payments</a></button>
+
+    @yield('totalOutstandingPayments')
+    <h1></h1>
+    <button class="btn btn-default">
+        <a href="/admin/totalOutstandingTimes">Total Outstanding Times</a></button>
+
+    @yield('totalOutstandingTimes')
+
+
 </div>
 
 @endsection

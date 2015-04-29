@@ -9,7 +9,7 @@
 
     <div class = "form-group"">
         {!! Form::label('number', 'How many cards do you wish to create?') !!}
-        {!! Form::text('number', null, ['class' => 'form-control']) !!}
+        {!! Form::text('number', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter the desired number of cards to be created here']) !!}
     </div>
 
     <div class = "form-group">
