@@ -43,11 +43,20 @@
         <td>{{$process->start_time}} </td>
         <td>{{$process->station_to}} </td>
         <td>{{$process->end_time}} </td>
-        <td>{{$process->time_consumed}} </td>
-        <td>{{$process->cost}} </td>
+        <td>{{$process->time_consumed}} Hours</td>
+        <td>{{$process->cost}} EGP </td>
     </tr>
 
     @endforeach
+
+    <tr>
+        <td colspan="8">Total Time Consumed</td>
+        <td> {{$totalTimes}} Hours</td>
+    </tr>
+    <tr>
+        <td colspan="9">Total Revenue</td>
+        <td>{{$totalPayments}} EGP </td>
+    </tr>
 </table>
 <h1></h1>
 

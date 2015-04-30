@@ -315,7 +315,13 @@ class CustomerController extends Controller {
         $user = Auth::user();
         $processes = Process::where('card_id', $user->card_id)->get();
 
-        return view('Customer.View.viewCustomerProcesses', compact('user', 'processes'));
+        $totalPayments = OutstandingPayment::where('card_id', $user->card_id)->first();
+        $totalPayments = number_format($totalPayments->outstanding_price, 2);
+
+        $totalTimes = OutstandingTime::where('card_id', $user->card_id)->first();
+        $totalTimes = number_format($totalTimes->outstanding_time, 2);
+
+        return view('Customer.View.viewCustomerProcesses', compact('user', 'processes', 'totalPayments', 'totalTimes'));
     }
 
 

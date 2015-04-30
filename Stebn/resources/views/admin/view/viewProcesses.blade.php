@@ -19,16 +19,16 @@
 <table border="1" style="width: 100%">
 
         <tr>
-            <th>ID</th>
+            <th>Process ID</th>
             <th>Hotel Name</th>
             <th>Card ID </th>
-            <th>Bike ID </th>
+            <th>Bike </th>
             <th>Station From</th>
             <th>Start Time </th>
             <th>Station To</th>
             <th>End Time</th>
             <th>Time Consumed </th>
-            <th>Cost </th>
+            <th>Revenue </th>
         </tr>
 
     @foreach($processes as $process)
@@ -42,11 +42,20 @@
             <td>{{$process->start_time}} </td>
             <td>{{$process->station_to}} </td>
             <td>{{$process->end_time}} </td>
-            <td>{{$process->time_consumed}} </td>
-            <td>{{$process->cost}} </td>
+            <td>{{$process->time_consumed}} Hours </td>
+            <td>{{$process->cost}} EGP </td>
         </tr>
 
 @endforeach
+
+    <tr>
+        <td colspan="8">Total Time Consumed</td>
+        <td> {{$totalTimes}} Hours</td>
+    </tr>
+    <tr>
+        <td colspan="9">Total Revenue</td>
+        <td>{{$totalPayments}} EGP </td>
+    </tr>
 </table>
 <h1></h1>
 
