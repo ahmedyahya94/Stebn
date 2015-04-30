@@ -9,10 +9,13 @@ use App\OutstandingTime;
 use App\User;
 use App\Bike;
 use Auth;
+use App\Price;
 use App\Time;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+//use Symfony\Component\Process\Process;
+use App\Process;
 
 class AdminController extends Controller {
 
@@ -147,7 +150,14 @@ class AdminController extends Controller {
     public function UpdateMinTime()
     {
         $user = Auth::User();
-        return view('admin.update.minimumTime', compact('user'));
+        if(is_null(Time::first())){
+            $minimum_time = 0;
+        }
+        else{
+            $minimum_time = Time::first();
+            $minimum_time = $minimum_time->minimum_time;
+        }
+        return view('admin.update.minimumTime', compact('user'), compact('minimum_time'));
     }
 
     /**
@@ -158,10 +168,19 @@ class AdminController extends Controller {
     public function UpdateBikeTime(Requests\UpdateMinTime $request)
     {
         $x = $request->minimum_time;
-        DB::table('times')
-            ->where('id', 1)
-            ->update(['minimum_time' => $x]);
 
+        if(is_null(Time::first()))
+        {
+            $time = new Time;
+            $time->minimum_time = $request->minimum_time;
+            $time->save();
+        }
+        else{
+        $oldTime = Time::first()->id;
+        DB::table('times')
+            ->where('id', $oldTime)
+            ->update(['minimum_time' => $x]);
+        }
         return redirect('admin/welcome')->with([
             'flash_message' => 'Minimum time updated successfully!',
             'flash_message_important' => true,
@@ -175,8 +194,15 @@ class AdminController extends Controller {
 
     public function updatePrice()
     {
+        if(is_null(Price::first()))
+        {
+            $price = 0;
+        }
+        else{
+        $price = Price::first()->price;
+        }
         $user = Auth::User();
-        return view('admin.update.price', compact('user'));
+        return view('admin.update.price', compact('user'), compact('price'));
     }
 
     /**
@@ -188,11 +214,20 @@ class AdminController extends Controller {
 
     public function updateBikePrice(Requests\updatePrice $request)
     {
+        if(is_null(Price::first()))
+        {
+            $price = new Price;
+            $price->price = $request->price;
+            $price->save();
+        }
+        else{
         $x = $request->price;
+        $oldPrice = Price::first()->id;
+        //dd($x);
         DB::table('prices')
-            ->where('id', 1)
+            ->where('id', $oldPrice)
             ->update(['price' => $x]);
-
+        }
         return redirect('admin/welcome')->with([
             'flash_message' => 'Price updated successfully!',
             'flash_message_important' => true,
@@ -207,15 +242,20 @@ class AdminController extends Controller {
     public function totalOutstandingPayments()
     {
         $user = Auth::User();
-        $totalPayments = OutstandingPayment::all();
-        $sum = 0;
-        foreach($totalPayments as $totalPayment)
-        {
-            $sum = $totalPayment->outstanding_price + $sum;
+        if(is_null(OutstandingPayment::all())){
+            $sum = 0;
         }
+        else{
+                $totalPayments = OutstandingPayment::all();
+                $sum = 0;
+                foreach($totalPayments as $totalPayment)
+                {
+                    $sum = $totalPayment->outstanding_price + $sum;
+                }
 
-        $formattedNum = number_format($sum, 2);
-        //dd($sum);
+                $formattedNum = number_format($sum, 2);
+                //dd($sum);
+        }
         return view('admin.view.totalOutstandingPayments', compact('user'), compact('formattedNum'));
     }
 
@@ -227,20 +267,33 @@ class AdminController extends Controller {
     public function totalOutstandingTimes()
     {
         $user = Auth::User();
-        $totalTimes = OutstandingTime::all();
-        $sum = 0;
-        foreach($totalTimes as $totalTime)
+        if(is_null(OutstandingTime::all()))
         {
-            $sum = $totalTime->outstanding_time + $sum;
+            $sum = 0;
         }
+        else{
+            $totalTimes = OutstandingTime::all();
+            $sum = 0;
+            foreach($totalTimes as $totalTime)
+            {
+                $sum = $totalTime->outstanding_time + $sum;
+            }
 
-        $formattedNum = number_format($sum, 2);
-        //dd($formattedNum);
-
+            $formattedNum = number_format($sum, 2);
+            //dd($formattedNum);
+        }
 
         //dd(round($sum,2));
         //dd($sum);
         return view('admin.view.totalOutstandingTimes', compact('user'), compact('formattedNum'));
+    }
+
+    public function viewProcesses()
+    {
+        $processes = Process::all();
+        $user = Auth::User();
+
+        return view('admin.view.viewProcesses', compact('user', 'processes'));
     }
 	/**
 	 * Show the form for creating a new resource.

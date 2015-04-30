@@ -8,7 +8,7 @@
 
     <div class = "form-group">
         {!! Form::label('price', 'Price:') !!}
-        {!! Form::text('price', null, ['class' => 'form-control']) !!}
+        {!! Form::text('price', $price, ['class' => 'form-control']) !!}
     </div>
 
     <h1></h1>
@@ -21,3 +21,4 @@
 </div>
 
 @endsection
+

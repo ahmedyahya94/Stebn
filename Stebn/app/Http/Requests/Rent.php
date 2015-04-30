@@ -22,7 +22,6 @@ class Rent extends Request {
     public function rules()
     {
         return [
-            'bike_station_id'   =>  'required',
             'bike_id'           =>  'required'
         ];
     }

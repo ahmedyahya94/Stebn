@@ -107,6 +107,7 @@ class AuthenticationController extends Controller {
 
         $user = User::where('email', $email)->where('password', $password)->first();
 
+        //dd($user);
         if(is_null($user))
         {
             return redirect('authentication/login')->with([
@@ -121,15 +122,16 @@ class AuthenticationController extends Controller {
         {
             case '1': return view('admin.welcome', compact('user')); break;
             case '2': return view('hotelreceptionist.welcome', compact('user')); break;
-            default : return view('Customer.welcome'); break;
+            default : return view('Customer.welcome', compact('user')); break;
         }
-
-
     }
 
     public function Deauthenticate()
     {
         Auth::logout();
-        return redirect('welcome');
+        return redirect('authentication/login')->with([
+            'flash_message' => 'You have been successfuly logged out.',
+            'flash_message_important' => true,
+        ]);;
     }
 }

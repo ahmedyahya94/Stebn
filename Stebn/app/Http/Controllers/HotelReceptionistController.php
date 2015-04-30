@@ -8,6 +8,7 @@ use Auth;
 use App\User;
 use App\Card;
 use Illuminate\Http\Request;
+use App\Process;
 
 class HotelReceptionistController extends Controller {
 
@@ -73,6 +74,14 @@ class HotelReceptionistController extends Controller {
         $outstandingTime = OutstandingTime::where('card_id', $customer_card_id)->first();
         $outstandingTime = $outstandingTime->outstanding_time;
         return view('hotelreceptionist.viewEachCustomerData', compact('user', 'customer', 'outstandingPrice', 'outstandingTime'));
+    }
+
+    public function viewHotelProcesses()
+    {
+        $user = Auth::User();
+        $processes = Process::where('hotel', $user->location)->get();
+
+        return view('hotelreceptionist.viewHotelProcesses', compact('user', 'processes'));
     }
 
 	/**

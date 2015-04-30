@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('welcome', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index');
 
 Route::get('authentication/register', 'AuthenticationController@register');
 
@@ -21,7 +21,7 @@ Route::get('authentication/login', 'AuthenticationController@login');
 
 Route::post('login', 'AuthenticationController@authenticate');
 
-Route::get('logout', 'AuthenticationController@Deauthenticate');
+Route::get('authentication/logout', 'AuthenticationController@Deauthenticate');
 
 Route::get('admin/welcome', 'AdminController@index');
 
@@ -78,3 +78,13 @@ Route::get('customers/{id}', 'HotelReceptionistController@viewEachCustomerData')
 Route::get('admin/totalOutstandingPayments', 'AdminController@totalOutstandingPayments');
 
 Route::get('admin/totalOutstandingTimes', 'AdminController@totalOutstandingTimes');
+
+Route::get('Customer/ViewBikesInStation', 'CustomerController@ViewBikesInStation');
+
+Route::post('viewBikesInTheStation', 'CustomerController@viewBikes');
+
+Route::get('admin/viewProcesses', 'AdminController@viewProcesses');
+
+Route::get('Customer/viewCustomerProcesses', 'CustomerController@viewCustomerProcesses');
+
+Route::get('hotelreceptionist/viewHotelProcesses', 'HotelReceptionistController@viewHotelProcesses');

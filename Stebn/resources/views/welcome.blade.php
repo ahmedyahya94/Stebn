@@ -1,11 +1,6 @@
 @extends('app')
 
 
-<button class="btn btn-default">
-    <a href="bikestations"> View Bike Stations</a>
-</button>
-
-
 <html>
 	<head>
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>

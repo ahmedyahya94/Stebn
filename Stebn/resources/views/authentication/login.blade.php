@@ -1,5 +1,4 @@
 @extends('app')
-
 @section('content')
 
 {!! Form::open(['url' => 'login']) !!}
@@ -23,16 +22,24 @@
 
     <h1></h1>
     <div class = "form-group">
-
-        {!! Form::submit(null, ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control'] ) !!}
 
     </div>
+<!--
+        <div id="buttons">
+            <a href="postLogin"> <h6> Login </h6>
+                <div>
+                    Ready for one hell of a ride?
+                </div>
+            </a>
+        </div>
+-->
 
 @include('errors/list')
 
 </div>
 
-{{!! Form::close() !!}
+{!! Form::close() !!}
 
 
 

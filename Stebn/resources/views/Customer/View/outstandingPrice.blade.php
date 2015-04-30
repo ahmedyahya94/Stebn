@@ -1,6 +1,6 @@
 @extends('Customer.welcome')
 @section('OutstandingPrice')
 
-EGP {{ $outstandingPayment->outstanding_price }}
+EGP {{ $outstandingPayment }}
 <h1></h1>
 @endsection
