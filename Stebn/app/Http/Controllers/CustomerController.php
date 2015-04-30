@@ -111,10 +111,13 @@ class CustomerController extends Controller {
             ->update(['start_time' => Carbon::now()]);
 
 
+        $bikeStation = BikeStation::find($bike_station_id);
+        $bike = Bike::find($bike_id);
+
         $process = Process::create([
                 'card_id'           => $user->card_id,
-                'bike_id'           => $bike_id,
-                'station_from'      => $bike_station_id,
+                'bike_id'           => $bike->type,
+                'station_from'      => $bikeStation->location,
                 'hotel'             => $user->location,
                 'start_time'        => Carbon::now(),
             ]);
@@ -240,9 +243,12 @@ class CustomerController extends Controller {
 
         $user = Auth::User();
 
+        $bikeStation = BikeStation::find($bike_station_id);
+        $bike = Bike::find($bike_id);
+
         DB::table('processes')
-            ->where('card_id', $request->card_id)->where('bike_id', $bike_id)->where('time_consumed', null)
-            ->update(['station_to' => $bike_station_id, 'end_time' => Carbon::now(),
+            ->where('card_id', $request->card_id)->where('bike_id', $bike->type)->where('time_consumed', null)
+            ->update(['station_to' => $bikeStation->location, 'end_time' => Carbon::now(),
                 'time_consumed' => $minutes, 'cost' => $payment]);
 
         return redirect('Customer/welcome')->with([
@@ -302,6 +308,20 @@ class CustomerController extends Controller {
         $user = Auth::User();
 
         return view('Customer.View.BikesInStation', compact('bikes'), compact('user'));
+    }
+
+    public function viewCustomerProcesses()
+    {
+        $user = Auth::user();
+        $processes = Process::where('card_id', $user->card_id)->get();
+
+        $totalPayments = OutstandingPayment::where('card_id', $user->card_id)->first();
+        $totalPayments = number_format($totalPayments->outstanding_price, 2);
+
+        $totalTimes = OutstandingTime::where('card_id', $user->card_id)->first();
+        $totalTimes = number_format($totalTimes->outstanding_time, 2);
+
+        return view('Customer.View.viewCustomerProcesses', compact('user', 'processes', 'totalPayments', 'totalTimes'));
     }
 
 

@@ -43,18 +43,11 @@
 
 @yield('updatePrice')
 
-
-<h1></h1>
-    <button class="btn btn-default">
-        <a href="/admin/totalOutstandingPayments">Total Outstanding Payments</a></button>
-
-    @yield('totalOutstandingPayments')
     <h1></h1>
     <button class="btn btn-default">
-        <a href="/admin/totalOutstandingTimes">Total Outstanding Times</a></button>
+        <a href="/admin/viewProcesses">View Processes </a></button>
 
-    @yield('totalOutstandingTimes')
-
+    @yield('viewProcesses')
 
 </div>
 

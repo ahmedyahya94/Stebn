@@ -17,7 +17,7 @@ class CreateProcessesTable extends Migration {
 			$table->increments('id');
             $table->string('hotel')->nullable();
             $table->integer('card_id');
-            $table->integer('bike_id')->nullable();
+            $table->string('bike_id')->nullable();
             $table->string('station_from')->nullable();
             $table->dateTime('start_time')->nullable();
             $table->string('station_to')->nullable();

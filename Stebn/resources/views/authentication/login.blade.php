@@ -25,6 +25,7 @@
             {!! Form::submit('Submit', ['class' => 'btn btn-primary form-control'] ) !!}
 
     </div>
+    <button type="button" onclick="{{ Redirect::to('authentication/remind') }}">Forgot your password?</button>
 <!--
         <div id="buttons">
             <a href="postLogin"> <h6> Login </h6>

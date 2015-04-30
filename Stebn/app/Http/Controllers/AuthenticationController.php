@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 
-class AuthenticationController extends Controller {
+class AuthenticationController extends Controller
+{
 
     /*
     |--------------------------------------------------------------------------
@@ -65,17 +66,18 @@ class AuthenticationController extends Controller {
         $card_id = $card->id;
         $user = Auth::user();
 
-        switch($type)
-        {
-            case '1':   User::create($request->all());
+        switch ($type) {
+            case '1':
+                User::create($request->all());
 
                 return redirect('admin/welcome')->with([
-                'flash_message' => 'Administrator created successfully',
-                'flash_message_important' => true,
-            ], compact($user));
-            break;
+                    'flash_message' => 'Administrator created successfully',
+                    'flash_message_important' => true,
+                ], compact($user));
+                break;
 
-            case '2':   User::create($request->all());
+            case '2':
+                User::create($request->all());
 
                 return redirect('hotelreceptionist/welcome')->with([
                     'flash_message' => 'Hotel Receptionist created successfully',
@@ -83,16 +85,17 @@ class AuthenticationController extends Controller {
                 ], compact($user));
                 break;
 
-            case '0':  User::create($request->all());
-                       DB::table('users')
-                            ->where('email', $request->email)
-                            ->update(['card_id' => $card_id]);
-                        //dd($request->card_id);
-                        $card->delete();
+            case '0':
+                User::create($request->all());
+                DB::table('users')
+                    ->where('email', $request->email)
+                    ->update(['card_id' => $card_id]);
+                //dd($request->card_id);
+                $card->delete();
 
 
                 return redirect('Customer/welcome')->with([
-                    'flash_message' => 'User created with Card ID:' .$card->id,
+                    'flash_message' => 'User created with Card ID:' . $card->id,
                     'flash_message_important' => true,
                 ], compact($user));
                 break;
@@ -108,8 +111,7 @@ class AuthenticationController extends Controller {
         $user = User::where('email', $email)->where('password', $password)->first();
 
         //dd($user);
-        if(is_null($user))
-        {
+        if (is_null($user)) {
             return redirect('authentication/login')->with([
                 'flash_message' => 'Wrong email or password!',
                 'flash_message_important' => true,
@@ -118,11 +120,16 @@ class AuthenticationController extends Controller {
 
         Auth::login($user);;
 
-        switch($user->type)
-        {
-            case '1': return view('admin.welcome', compact('user')); break;
-            case '2': return view('hotelreceptionist.welcome', compact('user')); break;
-            default : return view('Customer.welcome', compact('user')); break;
+        switch ($user->type) {
+            case '1':
+                return view('admin.welcome', compact('user'));
+                break;
+            case '2':
+                return view('hotelreceptionist.welcome', compact('user'));
+                break;
+            default :
+                return view('Customer.welcome', compact('user'));
+                break;
         }
     }
 
@@ -134,4 +141,38 @@ class AuthenticationController extends Controller {
             'flash_message_important' => true,
         ]);;
     }
+
+    public function remind()
+    {
+        return View::make('password.remind');
+    }
+
+
+    public function request()
+    {
+        $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
+
+        return Password::remind($credentials);
+    }
+    public function reset($token)
+    {
+        return View::make('password.reset')->with('token', $token);
+    }
+    public function update()
+    {
+        $credentials = array('email' => Input::get('email'));
+
+        return Password::reset($credentials, function($user, $password)
+        {
+            $user->password = Hash::make($password);
+
+            $user->save();
+
+            return Redirect::to('login')->with('flash', 'Your password has been reset');
+        });
+    }
+
 }
+
+
+

@@ -39,7 +39,7 @@
 
     <div>
         {!! Form::label('type', 'Register as a:') !!}
-        {!! Form::select('type', ['User', 'Administrator', 'Hotel Receptionist'], null, ['class' => 'form-control']) !!}
+        {!! Form::select('type', ['User', 'Administrator', 'Hotel Receptionist', 'Hotel Manager'], null, ['class' => 'form-control']) !!}
     </div>
     <h1></h1>
     <div class = "form-group">
