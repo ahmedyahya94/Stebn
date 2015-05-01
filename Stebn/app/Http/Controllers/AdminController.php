@@ -142,6 +142,22 @@ class AdminController extends Controller {
         return view('admin.view.BikesInStation', compact('bikes'), compact('user'));
     }
 
+    public function viewUsers()
+    {
+        $users = DB::select('select * from users where type != ?', ["1"]);
+        $processes = Process::all();
+
+        
+            return view('admin.view.Users', compact('users'), compact('processes'));
+    
+        
+    }
+
+    public function viewEachUserData()
+    {
+     echo ('hello');
+     }
+
 
     /**
      * Views the update minimum time page.

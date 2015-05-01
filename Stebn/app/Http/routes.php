@@ -88,3 +88,7 @@ Route::get('admin/viewProcesses', 'AdminController@viewProcesses');
 Route::get('Customer/viewCustomerProcesses', 'CustomerController@viewCustomerProcesses');
 
 Route::get('hotelreceptionist/viewHotelProcesses', 'HotelReceptionistController@viewHotelProcesses');
+
+Route::get('admin/Users', 'AdminController@viewUsers');
+
+Route::get('users/{id}', 'AdminController@viewEachUserData');

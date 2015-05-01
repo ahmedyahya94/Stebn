@@ -47,7 +47,15 @@
     <button class="btn btn-default">
         <a href="/admin/viewProcesses">View Processes </a></button>
 
-    @yield('viewProcesses')
+@yield('viewProcesses')
+
+<h1></h1>
+    <button class="btn btn-default">
+        <a href="/admin/Users"> View All Users</a>
+    </button>
+
+@yield('Users')
+
 
 </div>
 
