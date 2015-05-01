@@ -92,3 +92,7 @@ Route::get('hotelreceptionist/viewHotelProcesses', 'HotelReceptionistController@
 Route::get('admin/viewBikeStationFinance', 'AdminController@viewBikeStationFinance');
 
 Route::post('viewBikeStationFinance', 'AdminController@viewEachBikeStationFinance');
+
+Route::get('hotelManager/welcome', 'HotelManagerController@index');
+
+Route::get('hotelManager/registerReceptionist', 'HotelManagerController@registerReceptionist');

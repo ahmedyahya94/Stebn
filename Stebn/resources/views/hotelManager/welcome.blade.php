@@ -12,6 +12,11 @@
 
     <h1 id="username"> Hello {{$user->name}}</h1>
 
+    <h1></h1>
+    <button class="btn btn-default">
+        <a href="/hotelManager/registerReceptionist">Register A Receptionist</a></button>
+
+    @yield('register')
 </div>
 
 @endsection

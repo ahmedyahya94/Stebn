@@ -100,6 +100,12 @@ class AuthenticationController extends Controller {
 
     }
 
+    /**
+     * @param Requests\LoginUser $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * Validates an attempt to login a user, then logs him in if is valid.
+     */
+
     public function authenticate(Requests\LoginUser $request)
     {
         $email = trim($_POST['email']);
