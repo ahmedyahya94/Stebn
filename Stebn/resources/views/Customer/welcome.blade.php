@@ -134,7 +134,15 @@
     <h1></h1>
 </div>
     @yield('OutstandingTime')
+    <div id="buttons">
+        <a href="/Customer/viewCustomerProcesses"><h6> View Processes! </h6>
 
+            <div>
+                Proof.
+            </div>
+        </a>
+    </div>
+    @yield('viewCustomerProcesses')
 </div>
 </div>
 

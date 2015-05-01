@@ -82,3 +82,9 @@ Route::get('admin/totalOutstandingTimes', 'AdminController@totalOutstandingTimes
 Route::get('Customer/ViewBikesInStation', 'CustomerController@ViewBikesInStation');
 
 Route::post('viewBikesInTheStation', 'CustomerController@viewBikes');
+
+Route::get('admin/viewProcesses', 'AdminController@viewProcesses');
+
+Route::get('Customer/viewCustomerProcesses', 'CustomerController@viewCustomerProcesses');
+
+Route::get('hotelreceptionist/viewHotelProcesses', 'HotelReceptionistController@viewHotelProcesses');

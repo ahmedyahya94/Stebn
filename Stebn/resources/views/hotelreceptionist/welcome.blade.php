@@ -116,5 +116,15 @@
 
     @yield('viewEachCustomerData')
 
+    <div id="buttons">
+        <a href="/hotelreceptionist/viewHotelProcesses"><h6> View Hotel Processes! </h6>
+
+            <div>
+                Track.
+            </div>
+        </a>
+    </div>
+    @yield('viewHotelProcesses')
+
 </div>
 @endsection
