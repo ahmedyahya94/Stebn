@@ -34,6 +34,13 @@ class CustomerController extends Controller {
      *
      * @return Response
      */
+    public function ResetPassword(Requests\ResetPassword $request){
+        $user = Auth::User();
+        DB::table('user')
+            ->where('email', $user->email)
+            ->update(['password' => $password]);
+
+    }
     public function create()
     {
         //
@@ -252,7 +259,7 @@ class CustomerController extends Controller {
                 'time_consumed' => $minutes, 'cost' => $payment]);
 
         return redirect('Customer/welcome')->with([
-            'flash_message' => 'Bike successfully parked at: ' .Carbon::now() .'  In: '.$bikeStation->location,
+            'flash_message' => 'Bike successfully parked at: ' .Carbon::now(),
             'flash_message_important' => true,
         ]);
 

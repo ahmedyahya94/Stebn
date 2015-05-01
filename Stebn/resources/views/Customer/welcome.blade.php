@@ -133,6 +133,15 @@
     </a>
     <h1></h1>
 </div>
+    @yield('ResetPassword')
+    <div id="buttons">
+        <a href="/Customer/ResetPassword"> <h6> Wanna change your password! </h6>
+            <div>
+                No Problem!
+            </div>
+        </a>
+        <h1></h1>
+    </div>
     @yield('OutstandingTime')
     <div id="buttons">
         <a href="/Customer/viewCustomerProcesses"><h6> View Processes! </h6>
