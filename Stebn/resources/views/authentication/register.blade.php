@@ -32,14 +32,9 @@
         {!! Form::password('password_confirmation', $attributes = ['class' => 'form-control', 'placeholder' => 'Please confirm your password']) !!}
     </div>
 
-    <div class = "form-group">
-        {!! Form::label('location', 'Location:') !!}
-        {!! Form::text('location', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter your hotel location here']) !!}
-    </div>
-
     <div>
         {!! Form::label('type', 'Register as a:') !!}
-        {!! Form::select('type', ['User', 'Administrator', 'Hotel Receptionist', 'Hotel Manager'], null, ['class' => 'form-control']) !!}
+        {!! Form::select('type', ['User'], null, ['class' => 'form-control']) !!}
     </div>
     <h1></h1>
     <div class = "form-group">

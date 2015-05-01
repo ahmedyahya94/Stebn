@@ -264,6 +264,91 @@ class AdminController extends Controller {
 
         return view('admin.view.viewProcesses', compact('user', 'processes', 'totalPayments', 'totalTimes'));
     }
+
+    /**
+     * Views the bikes in a drop down list in order to view them later
+     */
+    public function viewBikeStationFinance()
+    {
+        $user = Auth::User();
+        $bikeStations = BikeStation::all();
+        return view('admin.view.viewBikeStationFinance', compact('user'), compact('bikeStations'));
+    }
+
+    /**
+     * Views the financial data of a certain bike station
+     */
+    public function viewEachBikeStationFinance(Requests\viewBikes $request)
+    {
+        $user = Auth::User();
+        $bike_station = $request->bikeStations;
+        $bike_station++;
+        $bike_station = BikeStation::find($bike_station);
+
+        $processes = Process::where('station_from', $bike_station->location)->get();
+
+        $totalPayments = OutstandingPayment::all();
+
+        $sum = 0;
+
+        foreach($totalPayments as $totalPayment)
+        {
+            $card_id = $totalPayment->card_id;
+            $customer = User::where('card_id', $card_id)->first();
+
+            if($customer->location == $bike_station->location)
+                $sum += $totalPayment->outstanding_price;
+        }
+
+        $total = 0;
+        $totalTimes = OutstandingTime::all();
+        foreach($totalTimes as $totalTime)
+        {
+            $card_id = $totalTime->card_id;
+            $customer = User::where('card_id', $card_id)->first();
+            if($customer->location == $bike_station->location)
+                $total += $totalTime->outstanding_time  ;
+        }
+
+        $totalPayments = number_format($sum, 2);
+        $totalTimes = number_format($total, 2);
+
+        return view('admin.view.viewEachBikeStationFinance', compact('user', 'processes', 'totalPayments', 'totalTimes'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * Returns the view to register a manager by the admin.
+     */
+    public function registerManager()
+    {
+        $user = Auth::User();
+        $bikeStations = BikeStation::all();
+        $bikeStations = $bikeStations->lists('location');
+
+        return view('admin.create.registerManager', compact('user', 'bikeStations'));
+    }
+
+    /**
+     * Registers and stores the manager.
+     */
+    public function registerTheManager(Requests\CreateUser $request)
+    {
+        $user = Auth::User();
+        $manager = User::create($request->all());
+        $manager->type = 3;
+        $location = $request->location;
+        $location++;
+        $location = BikeStation::find($location);
+        $location = $location->location; //Hahahaha
+        $manager->location = $location;
+        $manager->save();
+
+        return redirect('admin/welcome')->with([
+            'flash_message' => 'Hotel Manager created successfully',
+            'flash_message_important' => true,
+        ], compact($user));
+    }
 	/**
 	 * Show the form for creating a new resource.
 	 *

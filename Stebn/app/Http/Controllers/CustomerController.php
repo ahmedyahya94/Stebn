@@ -252,7 +252,7 @@ class CustomerController extends Controller {
                 'time_consumed' => $minutes, 'cost' => $payment]);
 
         return redirect('Customer/welcome')->with([
-            'flash_message' => 'Bike successfully parked at: ' .Carbon::now() .'  In: '.$bikeStation->location,
+            'flash_message' => 'Bike successfully parked at: ' .Carbon::now(),
             'flash_message_important' => true,
         ]);
 
