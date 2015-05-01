@@ -19,6 +19,10 @@ class HotelManagerController extends Controller {
 		return view('hotelManager.welcome', compact('user'));
 	}
 
+    /**
+     * @return \Illuminate\View\View
+     * Creates a hotel receptionist
+     */
     public function registerReceptionist()
     {
         $user = Auth::User();
