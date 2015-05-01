@@ -8,6 +8,8 @@ use Auth;
 use App\User;
 use App\Card;
 use Illuminate\Http\Request;
+use App\Process;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class HotelReceptionistController extends Controller {
 
@@ -73,6 +75,45 @@ class HotelReceptionistController extends Controller {
         $outstandingTime = OutstandingTime::where('card_id', $customer_card_id)->first();
         $outstandingTime = $outstandingTime->outstanding_time;
         return view('hotelreceptionist.viewEachCustomerData', compact('user', 'customer', 'outstandingPrice', 'outstandingTime'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     * Views all the processes done by all users in the hotel in a table layout.
+     */
+
+    public function viewHotelProcesses()
+    {
+        $user = Auth::User();
+        $processes = Process::where('hotel', $user->location)->get();
+
+        $totalPayments = OutstandingPayment::all();
+
+        $sum = 0;
+
+        foreach($totalPayments as $totalPayment)
+        {
+            $card_id = $totalPayment->card_id;
+            $customer = User::where('card_id', $card_id)->first();
+
+            if($customer->location == $user->location)
+                $sum += $totalPayment->outstanding_price;
+        }
+
+        $total = 0;
+        $totalTimes = OutstandingTime::all();
+        foreach($totalTimes as $totalTime)
+        {
+            $card_id = $totalTime->card_id;
+            $customer = User::where('card_id', $card_id)->first();
+            if($customer->location == $user->location)
+                $total += $totalTime->outstanding_time  ;
+        }
+
+        $totalPayments = number_format($sum, 2);
+        $totalTimes = number_format($total, 2);
+
+        return view('hotelreceptionist.viewHotelProcesses', compact('user', 'processes', 'totalPayments', 'totalTimes'));
     }
 
 	/**

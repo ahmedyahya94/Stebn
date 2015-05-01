@@ -14,6 +14,8 @@ use App\Time;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+//use Symfony\Component\Process\Process;
+use App\Process;
 
 class AdminController extends Controller {
 
@@ -234,56 +236,33 @@ class AdminController extends Controller {
 
     /**
      * @return \Illuminate\View\View
-     * Returns the total outstanding payments by all users.
+     * Views all the processes done by all the users in a table layout.
      */
 
-    public function totalOutstandingPayments()
+    public function viewProcesses()
     {
+        $processes = Process::all();
         $user = Auth::User();
-        if(is_null(OutstandingPayment::all())){
-            $sum = 0;
-        }
-        else{
-                $totalPayments = OutstandingPayment::all();
-                $sum = 0;
-                foreach($totalPayments as $totalPayment)
-                {
-                    $sum = $totalPayment->outstanding_price + $sum;
-                }
 
-                $formattedNum = number_format($sum, 2);
-                //dd($sum);
-        }
-        return view('admin.view.totalOutstandingPayments', compact('user'), compact('formattedNum'));
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     * returns the total outstanding time consumed by all customers.
-     */
-
-    public function totalOutstandingTimes()
-    {
-        $user = Auth::User();
-        if(is_null(OutstandingTime::all()))
+        $totalPayments = OutstandingPayment::all();
+        $sum = 0;
+        foreach($totalPayments as $totalPayment)
         {
-            $sum = 0;
-        }
-        else{
-            $totalTimes = OutstandingTime::all();
-            $sum = 0;
-            foreach($totalTimes as $totalTime)
-            {
-                $sum = $totalTime->outstanding_time + $sum;
-            }
-
-            $formattedNum = number_format($sum, 2);
-            //dd($formattedNum);
+            $sum = $totalPayment->outstanding_price + $sum;
         }
 
-        //dd(round($sum,2));
-        //dd($sum);
-        return view('admin.view.totalOutstandingTimes', compact('user'), compact('formattedNum'));
+        $totalPayments = number_format($sum, 2);
+
+        $totalTimes = OutstandingTime::all();
+        $sum = 0;
+        foreach($totalTimes as $totalTime)
+        {
+            $sum = $totalTime->outstanding_time + $sum;
+        }
+
+        $totalTimes = number_format($sum, 2);
+
+        return view('admin.view.viewProcesses', compact('user', 'processes', 'totalPayments', 'totalTimes'));
     }
 	/**
 	 * Show the form for creating a new resource.
