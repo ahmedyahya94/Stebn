@@ -9,23 +9,23 @@
 
     <div class = "form-group"">
     {!! Form::label('BatchSize', 'Batch size:') !!}
-    {!! Form::text('BatchSize', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter how many bikes the station can hold here']) !!}
+    {!! Form::text('BatchSize', null, ['class' => 'form-control']) !!}
 </div>
 
 
 <div class = "form-group"">
 {!! Form::label('location', 'Location:') !!}
-{!! Form::text('location', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter the bike station\'s name here (should be the same as the hotel\'s)']) !!}
+{!! Form::text('location', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class = "form-group"">
 {!! Form::label('maxCapacity', 'Max Capacity:') !!}
-{!! Form::text('maxCapacity', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter how many bikes the station can hold here']) !!}
+{!! Form::text('maxCapacity', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class = "form-group"">
 {!! Form::label('functional', 'Functional:') !!}
-{!! Form::text('functional', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Is the station ready to work? Please enter true/false']) !!}
+{!! Form::text('functional', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class = "form-group">
