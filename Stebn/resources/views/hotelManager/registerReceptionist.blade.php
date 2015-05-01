@@ -2,7 +2,7 @@
 
 @section('register')
 
-{!! Form::open(['url' => 'register']) !!}
+{!! Form::open(['url' => 'registerReceptionist']) !!}
 <h2></h2>
 <div class ="container">
 
@@ -30,11 +30,6 @@
 <div class = "form-group">
     {!! Form::label('password_confirmation', 'Confirm Password:') !!}
     {!! Form::password('password_confirmation', $attributes = ['class' => 'form-control', 'placeholder' => 'Please confirm your password']) !!}
-</div>
-
-<div class = "form-group">
-    {!! Form::label('location', 'Location:') !!}
-    {!! Form::text('location', null, $attributes = ['class' => 'form-control', 'placeholder' => 'Please enter your hotel location here']) !!}
 </div>
 
 <div>

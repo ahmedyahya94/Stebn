@@ -96,3 +96,5 @@ Route::post('viewBikeStationFinance', 'AdminController@viewEachBikeStationFinanc
 Route::get('hotelManager/welcome', 'HotelManagerController@index');
 
 Route::get('hotelManager/registerReceptionist', 'HotelManagerController@registerReceptionist');
+
+Route::post('registerReceptionist', 'HotelManagerController@registerTheReceptionist');

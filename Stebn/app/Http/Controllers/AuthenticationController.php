@@ -83,6 +83,13 @@ class AuthenticationController extends Controller {
                 ], compact($user));
                 break;
 
+            case '3': User::create($request->all());
+                return redirect('hotelManager/welcome')->with([
+                    'flash_message' => 'Hotel Manager created successfully',
+                    'flash_message_important' => true,
+                ], compact($user));
+                break;
+
             case '0':  User::create($request->all());
                        DB::table('users')
                             ->where('email', $request->email)
@@ -128,6 +135,7 @@ class AuthenticationController extends Controller {
         {
             case '1': return view('admin.welcome', compact('user')); break;
             case '2': return view('hotelreceptionist.welcome', compact('user')); break;
+            case '3': return view('hotelManager.welcome', compact('user')); break;
             default : return view('Customer.welcome', compact('user')); break;
         }
     }
