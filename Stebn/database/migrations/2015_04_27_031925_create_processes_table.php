@@ -14,7 +14,7 @@ class CreateProcessesTable extends Migration {
 	{
 		Schema::create('processes', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->string('hotel')->nullable();
             $table->integer('card_id');
             $table->string('bike_id')->nullable();

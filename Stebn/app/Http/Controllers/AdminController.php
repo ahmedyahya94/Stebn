@@ -269,7 +269,22 @@ class AdminController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+    public function HoursRented()
+    {
+        $user = Auth::User();
+        return view('admin.view.HoursRented', compact('user'));
+    }
+
+    public function viewHoursRented(Requests\HoursRented $request)
+    {
+        $Processes = Process::where('start_time'>$request->start_time)->where('start_time'<$request->end_time);
+        $Processes = $Processes->lists('bike_id','time_consumed','cost');
+        dd($Processes);
+
+        return view('admin.view.HoursRented', compact('user', 'HoursRented'));
+    }
+
+    public function create()
 	{
 		//
 	}

@@ -80,7 +80,7 @@
 
 <div class="container">
 
-    <h1 id="username"> Hello {{$user->name}}</h1>
+    <h1 id="username"> Hello </h1>
 
     <div id="buttons">
         <a href="/authentication/register"><h6> Create a new user! </h6>
